@@ -58,6 +58,19 @@ pipeline {
             }
         }
 
+stage("Handle Existing Mongo Container") {
+    steps {
+        sh """
+        if docker ps -a --filter "name=mongo" --format "{{.ID}}" | grep .; then
+            echo "Stopping and removing existing container with name 'mongo'..."
+            docker stop mongo || true
+            docker rm mongo || true
+        fi
+        """
+    }
+}
+
+        
         stage("Deployment") {
             steps {
                 sh """
