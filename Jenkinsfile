@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    environmenta {
+    environment {
         SONAR_HOME = tool name: 'sonar1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
 
