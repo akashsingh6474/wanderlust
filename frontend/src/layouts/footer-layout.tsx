@@ -22,7 +22,7 @@ function footer() {
         <section className="flex items-center pl-8 text-xs sm:text-sm">
           Need help? Connect with us on
           <span>
-{/*             <a href="https://discord.com/invite/FEKasAdCrG"> */}
+               <a href="https://discord.com/invite/FEKasAdCrG"> 
               <img src={Discord_Icon} className="h-6 w-10" />
             </a>
           </span>
