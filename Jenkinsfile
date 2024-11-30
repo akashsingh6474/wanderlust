@@ -34,14 +34,14 @@ pipeline {
                 }
             }
         }
-        
+
         stage("OWASP Dependency Check") {
             steps {
                 dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'dc'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-        
+
         stage("Wait for Sonar Quality Gate") {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
@@ -49,30 +49,29 @@ pipeline {
                 }
             }
         }
-        
+
         stage("Trivy Filesystem Scan") {
             steps {
                 sh """
-                trivy fs --format table -o trivy-fs-report.html .
+                trivy fs --format table -o trivy-fs-report.html . 
                 """
             }
         }
 
-stage("Handle Existing Mongo Container") {
-    steps {
-        sh """
-        if docker ps -a --filter "name=mongo" --format "{{.ID}}" | grep .; then
-            echo "Stopping and removing existing container with name 'mongo'..."
-            docker stop mongo || true
-            docker rm mongo || true
-        fi
-        """
-    }
-}
+        stage("Handle Existing Containers") {
+            steps {
+                // Automatically stop and remove frontend, backend, and mongo containers
+                sh """
+                docker rm -f frontend || true
+                docker rm -f backend || true
+                docker rm -f mongo || true
+                """
+            }
+        }
 
-        
         stage("Deployment") {
             steps {
+                // Ensure the deployment script starts the containers automatically
                 sh """
                 chmod +x start_and_import.sh
                 ./start_and_import.sh
