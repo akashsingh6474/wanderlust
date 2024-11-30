@@ -14,19 +14,10 @@ pipeline {
 
         stage("Generate .env Files") {
             steps {
+                // Write frontend .env.docker
                 sh """
                 cp frontend/.env.sample frontend/.env.docker
                 cp backend/.env.sample backend/.env.docker
-                """
-            }
-        }
-
-        stage("Stop Running Containers") {
-            steps {
-                echo "Stopping running containers..."
-                sh """
-                docker ps -q | xargs -r docker stop || true
-                docker ps -aq | xargs -r docker rm || true
                 """
             }
         }
@@ -62,7 +53,6 @@ pipeline {
         stage("Trivy Filesystem Scan") {
             steps {
                 sh """
-                trivy --download-db-only
                 trivy fs --format table -o trivy-fs-report.html .
                 """
             }
@@ -75,18 +65,6 @@ pipeline {
                 ./start_and_import.sh
                 """
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Please check logs.'
-        }
-        always {
-            cleanWs() // Clean up workspace
         }
     }
 }
