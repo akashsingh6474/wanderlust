@@ -10,10 +10,10 @@ function footer() {
         <section className="flex items-center text-xs sm:text-sm">
           Find an issue with this page?{' '}
           <span className="pl-1 text-blue-500">
-            <a href="https://github.com/krishnaacharyaa/wanderlust">Fix it on GitHub</a>
+            <a href="https://github.com/akashsingh6474/wanderlust">Fix it on GitHub</a>
           </span>
           <span>
-            <a href="https://github.com/krishnaacharyaa/wanderlust">
+            <a href="https://github.com/akashsingh6474/wanderlust">
               <img src={GitHub_Icon} className="h-7 w-10" />
             </a>
           </span>
@@ -22,7 +22,7 @@ function footer() {
         <section className="flex items-center pl-8 text-xs sm:text-sm">
           Need help? Connect with us on
           <span>
-            <a href="https://discord.com/invite/FEKasAdCrG">
+{/*             <a href="https://discord.com/invite/FEKasAdCrG"> */}
               <img src={Discord_Icon} className="h-6 w-10" />
             </a>
           </span>
