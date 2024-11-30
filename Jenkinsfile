@@ -79,4 +79,24 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            // Display success message
+            echo 'Pipeline completed successfully!'
+            
+            // Optionally reload the application (this could be a restart or reload command)
+            sh """
+            echo 'Reloading the application...'
+            # Command to reload the application
+            docker restart frontend || true
+            docker restart backend || true
+            docker restart mongo || true
+            """
+        }
+        failure {
+            // Handle failure case
+            echo 'Pipeline failed!'
+        }
+    }
 }
