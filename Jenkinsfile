@@ -50,6 +50,29 @@ pipeline {
             }
         }
 
+        stage("Run Test Cases") {
+            parallel {
+                stage("Run Frontend Tests") {
+                    steps {
+                        sh """
+                        cd frontend
+                        npm install
+                        npm test -- --watchAll=false
+                        """
+                    }
+                }
+                stage("Run Backend Tests") {
+                    steps {
+                        sh """
+                        cd backend
+                        npm install
+                        npm test -- --watchAll=false
+                        """
+                    }
+                }
+            }
+        }
+
         stage("Trivy Filesystem Scan") {
             steps {
                 sh """
