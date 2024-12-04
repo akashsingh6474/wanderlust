@@ -13,6 +13,7 @@ RUN npm install --legacy-peer-deps
 # Copy the rest of the application files
 COPY . .
 
+RUN npm test
 # Copy the environment file
 COPY .env.sample .env
 
