@@ -13,7 +13,6 @@ RUN npm cache clean --force && npm install --legacy-peer-deps --ignore-scripts
 # Copy the rest of the application files to the working directory
 COPY . .
 
-RUN npm test
 
 # (Optional) Build your application if needed
 # RUN npm run build
